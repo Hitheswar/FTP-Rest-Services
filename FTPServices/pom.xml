@@ -72,15 +72,8 @@
 			 <plugin>
 			    <groupId>org.codehaus.mojo</groupId>
 			    <artifactId>jaxb2-maven-plugin</artifactId>
-			    <version>1.8</version>
-			    <executions>
-			      <execution>
-			        <id>xjc</id>
-			        <goals>
-			          <goal>xjc</goal>
-			        </goals>
-			      </execution>
-			    </executions>
+			    <version>1.6</version>
+			    
 			    <configuration>
 			      <schemaDirectory>H:\STudy\GitHub\GIT-Java-Projects\FTPServices\FTPServices\src\main\resources</schemaDirectory>
 			      <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
