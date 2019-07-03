@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -64,14 +65,15 @@ public class Controller {
         FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
 
 
-        File downloadLocation = new File("/root/temp/"+fileName);
-        OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
-        
-        boolean success = FTPClient.retrieveFile(path, outputStream);
+  //      File downloadLocation = new File("/root/temp/"+fileName);
+//        OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
+//        boolean success = FTPClient.retrieveFile(path, outputStream);
 
-        System.out.println("success   :::"+success);
+        InputStream inputStream = FTPClient.retrieveFileStream(path);
+        Files.copy(inputStream, new File(fileName).toPath());
+
         FTPClient.disconnect();
-        outputStream.close();
+        //outputStream.close();
         
         
 		return null;
