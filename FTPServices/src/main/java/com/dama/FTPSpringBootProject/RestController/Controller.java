@@ -71,12 +71,16 @@ public class Controller {
 		FTPClient = FTPService.getConnection(request);
 		
         InputStream inputStream = FTPClient.retrieveFileStream(path);
-        
+        System.out.println("stream :");
         Files.copy(inputStream, new File(fileName).toPath());
-        
+        System.out.println("copy stream :");
+
         Path path1 = Paths.get(file.getAbsolutePath());
-        
+        System.out.println("path :");
+
         resource = new ByteArrayResource(Files.readAllBytes(path1));
+        System.out.println("resource :");
+
         return ResponseEntity.ok()
                 .headers(header)
                 .contentLength(file.length())
