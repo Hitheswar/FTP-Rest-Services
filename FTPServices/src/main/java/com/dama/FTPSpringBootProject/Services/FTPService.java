@@ -23,7 +23,7 @@ public class FTPService {
         String password = request.get(Constants.PASSWORD).toString();
         String username = request.get(Constants.USER).toString();
         ftpClient.connect(host);
-        ftpClient.enterLocalPassiveMode();
+        //ftpClient.enterLocalPassiveMode();
         showServerReply(ftpClient);
         ftpClient.login(username, password);
         showServerReply(ftpClient);

@@ -1,10 +1,13 @@
 package com.dama.FTPSpringBootProject.RestController;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -52,17 +55,14 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        File file = new File(path);
+        String home = System.getProperty("user.home");
+        File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
+        OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
 
-        InputStream fin = FTPClient.retrieveFileStream(path);
-        System.out.println("input stream");
-        org.apache.commons.io.IOUtils.copy(fin, response.getOutputStream());
-        System.out.println("output stream commons");
-        response.flushBuffer();
-        System.out.println("fushed");
+        System.out.println("downloadLocation   ::"+downloadLocation);
+        
 
-
-        		
+        
 		return null;
 	}
 }
