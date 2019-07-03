@@ -44,6 +44,38 @@ public class Controller {
 		return null;
 	}
 
+	public JSONObject DownloadFileM(JSONObject request, HttpServletResponse response) throws IOException {
+		
+		String path = request.get(Constants.PATH).toString();
+        String fileName = path.substring(path.lastIndexOf("/") + 1);
+        FTPService FTPService = new FTPService();
+		FTPClient FTPClient = new FTPClient();
+		try {
+			FTPClient = FTPService.getConnection(request);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FTPClient.enterLocalPassiveMode();
+		FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
+        
+        String home = System.getProperty("user.home");
+        System.out.println("home   :::"+home);
+        FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+
+        File downloadLocation = new File("/root/temp/"+fileName);
+        OutputStream outputStream =new FileOutputStream(downloadLocation);
+        
+        boolean success = FTPClient.retrieveFile(path, outputStream);
+
+        System.out.println("success   :::"+success);
+        FTPClient.disconnect();
+        outputStream.close();
+        
+        
+		return null;
+	}
 	public JSONObject DownloadFile(JSONObject request, HttpServletResponse response) throws IOException {
 		
 		String path = request.get(Constants.PATH).toString();
@@ -56,8 +88,8 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FTPClient.enterLocalActiveMode();
-        FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
+		FTPClient.enterLocalPassiveMode();
+		 FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
         //
         String home = System.getProperty("user.home");
         System.out.println("home   :::"+home);
@@ -80,4 +112,5 @@ public class Controller {
         
 		return null;
 	}
+
 }
