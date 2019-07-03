@@ -15,8 +15,9 @@ import com.dama.FTPSpringBootProject.Util.Utils;
 @Component
 public class FTPService {
 
-	public FTPClient getConnection(JSONObject request) throws SocketException, IOException {
+	public FTPClient getConnection(JSONObject request) throws Exception {
 		FTPClient ftpClient = new FTPClient();
+		try {
         String host = request.get(Constants.HOST).toString();
         System.out.println("HOST  +"+host);
         String password = request.get(Constants.PASSWORD).toString();
@@ -26,6 +27,11 @@ public class FTPService {
         showServerReply(ftpClient);
         ftpClient.login(username, password);
         showServerReply(ftpClient);
+		}
+		catch(Exception ex)
+		{
+			throw new Exception ("invalid credentials");
+		}
         return ftpClient;
 				
 	}
