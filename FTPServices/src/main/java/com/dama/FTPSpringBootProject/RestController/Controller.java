@@ -56,7 +56,7 @@ public class Controller {
 		
 		String path = request.get(Constants.PATH).toString();
         String fileName = path.substring(path.lastIndexOf("/") + 1);
-		File file = new File(fileName);
+		File file = new File("/root/temp/fileName");
 		
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+fileName);
@@ -72,7 +72,7 @@ public class Controller {
 		
         InputStream inputStream = FTPClient.retrieveFileStream(path);
         System.out.println("stream :");
-        Files.copy(inputStream, new File(fileName).toPath());
+        Files.copy(inputStream, file.toPath());
         System.out.println("copy stream :");
 
         Path path1 = Paths.get(file.getAbsolutePath());
