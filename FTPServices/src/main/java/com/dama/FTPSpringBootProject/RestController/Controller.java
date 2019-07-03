@@ -61,8 +61,8 @@ public class Controller {
         System.out.println("home   :::"+home);
         FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
 
-        //File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
-        File downloadLocation = new File("C:\\Users\\Aline\\downloads\\fileName");
+       // File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
+        File downloadLocation = new File("/home/alineuser/DAMA/down/"+fileName);
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
         
         boolean success = FTPClient.retrieveFile(path, outputStream);
