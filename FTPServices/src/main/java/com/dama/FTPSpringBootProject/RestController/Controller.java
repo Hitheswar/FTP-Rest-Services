@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +21,11 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
 import com.dama.FTPSpringBootProject.Services.FTPService;
 import com.dama.FTPSpringBootProject.Util.Constants;
 
@@ -45,39 +52,45 @@ public class Controller {
 		return null;
 	}
 
-	public JSONObject DownloadFileM(JSONObject request, HttpServletResponse response) throws IOException {
+	public ResponseEntity<ByteArrayResource> DownloadFileM(JSONObject request) throws Exception {
 		
 		String path = request.get(Constants.PATH).toString();
         String fileName = path.substring(path.lastIndexOf("/") + 1);
+		File file = new File(fileName);
+		
+        HttpHeaders header = new HttpHeaders();
+        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+fileName);
+        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        header.add("Pragma", "no-cache");
+        header.add("Expires", "0");
+        
+        ByteArrayResource resource;
+
         FTPService FTPService = new FTPService();
-		FTPClient FTPClient = new FTPClient();
-		try {
-			FTPClient = FTPService.getConnection(request);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		FTPClient.enterLocalPassiveMode();
-		FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
-        
-        String home = System.getProperty("user.home");
-        System.out.println("home   :::"+home);
-        FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
-
-
-  //      File downloadLocation = new File("/root/temp/"+fileName);
-//        OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
-//        boolean success = FTPClient.retrieveFile(path, outputStream);
-
+        FTPClient FTPClient = new FTPClient();
+		FTPClient = FTPService.getConnection(request);
+		
         InputStream inputStream = FTPClient.retrieveFileStream(path);
+        
         Files.copy(inputStream, new File(fileName).toPath());
+        
+        Path path1 = Paths.get(file.getAbsolutePath());
+        
+        resource = new ByteArrayResource(Files.readAllBytes(path1));
+        return ResponseEntity.ok()
+                .headers(header)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(resource);
+        
+}
+	
 
-        FTPClient.disconnect();
-        //outputStream.close();
-        
-        
-		return null;
-	}
+
+
+
+		
+		
 	public JSONObject DownloadFile(JSONObject request, HttpServletResponse response) throws IOException {
 		
 		String path = request.get(Constants.PATH).toString();

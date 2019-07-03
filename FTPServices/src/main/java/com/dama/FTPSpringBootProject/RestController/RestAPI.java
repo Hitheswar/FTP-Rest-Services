@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,10 +34,10 @@ public class RestAPI {
 	//http://192.168.2.23:30000/api/ifm/download?name=ftp&connectiontype=ftp&hdfspath=/home/aline/dama/test.xlsx
 	
 	
-	@RequestMapping(value = "/downloadM",method = RequestMethod.POST)
-	public JSONObject DownloadFileM(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
+	@RequestMapping(value = "/downloadM")
+	public ResponseEntity<ByteArrayResource> DownloadFileM(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
 		Controller Controller = new Controller();
-		return Controller.DownloadFileM(request,response);
+		return Controller.DownloadFileM(request);
 	}
 	
 	@RequestMapping(value = "/downloadL",method = RequestMethod.POST)
