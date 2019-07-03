@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -78,7 +79,9 @@ public class Controller {
         Path path1 = Paths.get(file.getAbsolutePath());
         System.out.println("path :");
 
-        resource = new ByteArrayResource(Files.readAllBytes(path1));
+        //resource = new ByteArrayResource(Files.readAllBytes(path1));
+        byte [] byteArray = IOUtils.toByteArray(inputStream);
+        resource = new ByteArrayResource(byteArray);
         System.out.println("resource :");
 
         return ResponseEntity.ok()
