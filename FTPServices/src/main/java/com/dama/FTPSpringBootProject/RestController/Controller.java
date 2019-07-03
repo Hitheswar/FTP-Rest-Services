@@ -55,6 +55,7 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		FTPClient.enterLocalActiveMode();
         String home = System.getProperty("user.home");
         File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
