@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.json.simple.JSONArray;
@@ -57,13 +58,16 @@ public class Controller {
 		}
 		FTPClient.enterLocalActiveMode();
         String home = System.getProperty("user.home");
-        //File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
-        File downloadLocation = new File("C:\\Users\\Aline\\downloads\\ExampleData.xlsx");
+        System.out.println("home   :::"+home);
+        FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+        File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
+        
         boolean success = FTPClient.retrieveFile(path, outputStream);
+       // org.apache.commons.io.IOUtils.copy(inputStream, outputStream);
 
-       // System.out.println("downloadLocation   ::"+downloadLocation);
-
+        System.out.println("success   :::"+success);
 
         
 		return null;
