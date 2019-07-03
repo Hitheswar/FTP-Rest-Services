@@ -50,6 +50,7 @@ public class Controller {
 		System.out.println("home dir  :"+home);
 		
 		java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
+		System.out.println("localMachine  ::"+localMachine);
 		System.out.println("Hostname of local machine: " + localMachine.getHostName());
         		
 		return null;
