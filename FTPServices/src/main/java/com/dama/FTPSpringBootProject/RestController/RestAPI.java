@@ -2,6 +2,8 @@ package com.dama.FTPSpringBootProject.RestController;
 
 
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONObject;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -31,8 +33,8 @@ public class RestAPI {
 	
 	
 	@RequestMapping(value = "/download",method = RequestMethod.POST)
-	public JSONObject DownloadFile(@RequestBody JSONObject request) throws Exception{
+	public JSONObject DownloadFile(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
 		Controller Controller = new Controller();
-		return Controller.DownloadFile(request);
+		return Controller.DownloadFile(request,response);
 	}
 }
