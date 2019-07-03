@@ -56,13 +56,10 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FTPClient.enterLocalPassiveMode();
-        String home = System.getProperty("user.home");
-        System.out.println("home   :::"+home);
+      
         FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
 
-       // File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
-        File downloadLocation = new File("/home/alineuser/DAMA/down/"+fileName);
+        File downloadLocation = new File("/root/home/alineuser/DAMA/down/"+fileName);
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
         
         boolean success = FTPClient.retrieveFile(path, outputStream);
