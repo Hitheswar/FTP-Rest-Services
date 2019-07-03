@@ -72,7 +72,7 @@ public class Controller {
 		
         InputStream inputStream = FTPClient.retrieveFileStream(path);
         System.out.println("stream :");
-        Files.copy(inputStream, new File("/root/temp/"+fileName).toPath());
+        //Files.copy(inputStream, new File("/root/temp/"+fileName).toPath());
         System.out.println("copy stream :");
 
         Path path1 = Paths.get(file.getAbsolutePath());
