@@ -61,14 +61,16 @@ public class Controller {
         System.out.println("home   :::"+home);
         FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
 
-        File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
+        //File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
+        File downloadLocation = new File("C:\\Users\\Aline\\downloads\\fileName");
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
         
         boolean success = FTPClient.retrieveFile(path, outputStream);
-       // org.apache.commons.io.IOUtils.copy(inputStream, outputStream);
 
         System.out.println("success   :::"+success);
-
+        FTPClient.disconnect();
+        outputStream.close();
+        
         
 		return null;
 	}
