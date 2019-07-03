@@ -56,7 +56,7 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FTPClient.enterLocalActiveMode();
+		FTPClient.enterLocalPassiveMode();
         String home = System.getProperty("user.home");
         System.out.println("home   :::"+home);
         FTPClient.setFileType(FTP.BINARY_FILE_TYPE);
