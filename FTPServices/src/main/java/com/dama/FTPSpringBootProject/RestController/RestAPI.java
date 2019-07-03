@@ -32,8 +32,14 @@ public class RestAPI {
 	//http://192.168.2.23:30000/api/ifm/download?name=ftp&connectiontype=ftp&hdfspath=/home/aline/dama/test.xlsx
 	
 	
-	@RequestMapping(value = "/download",method = RequestMethod.POST)
-	public JSONObject DownloadFile(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
+	@RequestMapping(value = "/downloadM",method = RequestMethod.POST)
+	public JSONObject DownloadFileM(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
+		Controller Controller = new Controller();
+		return Controller.DownloadFileM(request,response);
+	}
+	
+	@RequestMapping(value = "/downloadL",method = RequestMethod.POST)
+	public JSONObject DownloadFileL(@RequestBody JSONObject request,HttpServletResponse response) throws Exception{
 		Controller Controller = new Controller();
 		return Controller.DownloadFile(request,response);
 	}
