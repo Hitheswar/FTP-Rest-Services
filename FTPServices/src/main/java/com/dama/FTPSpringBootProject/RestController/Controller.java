@@ -56,12 +56,16 @@ public class Controller {
 			e.printStackTrace();
 		}
 		FTPClient.enterLocalActiveMode();
-        String home = System.getProperty("user.home");
-        //File downloadLocation = new File(home + "/" + "downloads" + "/" + fileName);
-        File downloadLocation = new File("C:\\Users\\Aline\\downloads\\ExampleData.xlsx");
-        OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadLocation));
-        boolean success = FTPClient.retrieveFile(path, outputStream);
-
+      //  String home = System.getProperty("user.home");
+		String home = System.getProperty("java.io.tmpdir");
+		System.out.println("home  :::"+home);
+		/*
+		 * File temp_location = new File(home + "/" + "downloads" + "/" + fileName);
+		 * File downloadLocation = new File("C:\\Users\\Aline\\downloads\\data.csv");
+		 * OutputStream outputStream = new BufferedOutputStream(new
+		 * FileOutputStream(downloadLocation)); boolean success =
+		 * FTPClient.retrieveFile(path, outputStream);
+		 */
        // System.out.println("downloadLocation   ::"+downloadLocation);
 
 
