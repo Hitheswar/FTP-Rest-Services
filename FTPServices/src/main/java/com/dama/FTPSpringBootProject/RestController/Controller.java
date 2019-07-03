@@ -2,6 +2,8 @@ package com.dama.FTPSpringBootProject.RestController;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.UnknownHostException;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.json.simple.JSONArray;
@@ -32,7 +34,7 @@ public class Controller {
 		return null;
 	}
 
-	public JSONObject DownloadFile(JSONObject request) {
+	public JSONObject DownloadFile(JSONObject request) throws UnknownHostException {
 		
 		String path = request.get(Constants.PATH).toString();
         String fileName = path.substring(path.lastIndexOf("/") + 1);
@@ -46,6 +48,9 @@ public class Controller {
 		}
 		String home = System.getProperty("user.home");
 		System.out.println("home dir  :"+home);
+		
+		java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
+		System.out.println("Hostname of local machine: " + localMachine.getHostName());
         		
 		return null;
 	}
