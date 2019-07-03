@@ -46,10 +46,12 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String home = System.getProperty("user.home");
+		String home = System.getProperty("java.io.tmpdir");
 		System.out.println("home dir  :"+home);
 		
 		java.net.InetAddress localMachine = java.net.InetAddress.getLocalHost();
+		
+		
 		System.out.println("localMachine  ::"+localMachine);
 		System.out.println("Hostname of local machine: " + localMachine.getHostName());
         		
