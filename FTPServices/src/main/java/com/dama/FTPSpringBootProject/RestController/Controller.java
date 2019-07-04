@@ -74,14 +74,14 @@ public class Controller {
 				
         InputStream inputStream = FTPClient.retrieveFileStream(path);
         System.out.println("stream :");
-        Files.copy(inputStream, new File("/tmp"+fileName).toPath());
+        Files.copy(inputStream, new File("/tmp/"+fileName).toPath());
         System.out.println("copy stream :");
 
         Path path1 = Paths.get(file.getAbsolutePath());
         System.out.println("path :");
 
        resource = new ByteArrayResource(Files.readAllBytes(path1));
-       Files.deleteIfExists(Paths.get("/tmp"+fileName));
+       Files.deleteIfExists(Paths.get("/tmp/"+fileName));
         System.out.println("resource :");
 
         return ResponseEntity.ok()
