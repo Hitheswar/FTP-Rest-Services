@@ -81,7 +81,7 @@ public class Controller {
         System.out.println("path :");
 
        resource = new ByteArrayResource(Files.readAllBytes(path1));
-       Files.deleteIfExists(Paths.get("/tmp/"+fileName));
+       //Files.deleteIfExists(Paths.get("/tmp/"+fileName));
         System.out.println("resource :");
 
         return ResponseEntity.ok()
