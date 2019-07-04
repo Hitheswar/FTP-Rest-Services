@@ -58,7 +58,7 @@ public class Controller {
 		
 		String path = request.get(Constants.PATH).toString();
         String fileName = path.substring(path.lastIndexOf("/") + 1);
-		File file = new File("/root/temp/"+fileName);
+		File file = new File("/tmp/"+fileName);
 		
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+fileName);
