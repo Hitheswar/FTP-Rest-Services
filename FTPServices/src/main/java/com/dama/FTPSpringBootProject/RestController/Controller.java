@@ -1,6 +1,7 @@
 package com.dama.FTPSpringBootProject.RestController;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -70,18 +71,17 @@ public class Controller {
         FTPService FTPService = new FTPService();
         FTPClient FTPClient = new FTPClient();
 		FTPClient = FTPService.getConnection(request);
-		
+				
         InputStream inputStream = FTPClient.retrieveFileStream(path);
         System.out.println("stream :");
-        Files.copy(inputStream, new File("/root/temp/"+fileName).toPath());
+        Files.copy(inputStream, new File("/tmp"+fileName).toPath());
         System.out.println("copy stream :");
 
         Path path1 = Paths.get(file.getAbsolutePath());
         System.out.println("path :");
 
-        //resource = new ByteArrayResource(Files.readAllBytes(path1));
-        byte [] byteArray = IOUtils.toByteArray(inputStream);
-        resource = new ByteArrayResource(byteArray);
+       resource = new ByteArrayResource(Files.readAllBytes(path1));
+       Files.deleteIfExists(Paths.get("/tmp"+fileName));
         System.out.println("resource :");
 
         return ResponseEntity.ok()
@@ -91,11 +91,6 @@ public class Controller {
                 .body(resource);
         
 }
-	
-
-
-
-
 		
 		
 	public JSONObject DownloadFile(JSONObject request, HttpServletResponse response) throws IOException {
