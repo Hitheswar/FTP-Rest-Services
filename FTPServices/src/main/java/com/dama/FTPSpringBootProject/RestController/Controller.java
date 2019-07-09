@@ -58,7 +58,8 @@ public class Controller {
 		
 		String path = request.get(Constants.PATH).toString();
         String fileName = path.substring(path.lastIndexOf("/") + 1);
-		File file = new File("/tmp/"+fileName);
+        Files.deleteIfExists(Paths.get(Constants.TMP+fileName));
+		File file = new File(Constants.TMP+fileName);
 		
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+fileName);
@@ -74,14 +75,14 @@ public class Controller {
 				
         InputStream inputStream = FTPClient.retrieveFileStream(path);
         System.out.println("stream :");
-        Files.copy(inputStream, new File("/tmp/"+fileName).toPath());
+        Files.copy(inputStream, new File(Constants.TMP+fileName).toPath());
         System.out.println("copy stream :");
 
         Path path1 = Paths.get(file.getAbsolutePath());
         System.out.println("path :");
 
        resource = new ByteArrayResource(Files.readAllBytes(path1));
-       //Files.deleteIfExists(Paths.get("/tmp/"+fileName));
+       
         System.out.println("resource :");
 
         return ResponseEntity.ok()
